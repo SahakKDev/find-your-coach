@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import CoachItem from '@/componenets/coaches/CoachItem.vue';
+import CoachItem from '@/components/coaches/CoachItem.vue';
 import { mapGetters } from 'vuex';
 
 export default {
