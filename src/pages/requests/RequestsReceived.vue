@@ -1,1 +1,1 @@
-<template>RequestsReceived</template>
+<template>REQUESTS</template>

@@ -1,1 +1,1 @@
-<template>ContactCoach</template>
+<template>Contact Coach</template>
