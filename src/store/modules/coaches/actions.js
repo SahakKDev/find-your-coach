@@ -1,7 +1,7 @@
 export default {
   registerCoach(context, data) {
     const coachData = {
-      id: Math.random().toString(),
+      id: context.rootGetters.userId,
       firstName: data.first,
       lastName: data.last,
       description: data.desc,
