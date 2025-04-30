@@ -1,15 +1,22 @@
 <template>
-  <CoachFilter @change-filter="setFilters" />
+  <base-dialog :show="!!error" @close="handleError">
+    <p>{{ error }}</p>
+  </base-dialog>
+  <section>
+    <CoachFilter @change-filter="setFilters" />
+  </section>
   <section>
     <base-card>
       <div class="controls">
-        <base-button mode="outline">Refresh</base-button>
-        <base-button v-if="!isCoach" link to="/register"
+        <base-button mode="outline" @click="loadCoaches">Refresh</base-button>
+        <base-button v-if="!isCoach && !isLoading" link to="/register"
           >Register as Coach</base-button
         >
       </div>
-
-      <ul v-if="hasCoaches">
+      <div v-if="isLoading">
+        <base-spinner />
+      </div>
+      <ul v-else-if="hasCoaches">
         <CoachItem
           v-for="coach in filteredCoaches"
           :key="coach.id"
@@ -24,7 +31,6 @@
       </ul>
       <h3 v-else>No coaches found.</h3>
     </base-card>
-    >
   </section>
 </template>
 
@@ -40,6 +46,8 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
+      error: null,
       activeFilters: {
         frontend: true,
         backend: true,
@@ -66,9 +74,27 @@ export default {
       });
     },
   },
+  created() {
+    this.loadCoaches();
+  },
   methods: {
     setFilters(filters) {
       this.activeFilters = filters;
+    },
+    async loadCoaches() {
+      this.error = null;
+      this.isLoading = true;
+
+      try {
+        await this.$store.dispatch('coaches/loadCoaches');
+      } catch (error) {
+        this.error = error.message || 'Something went wrong!';
+      }
+
+      this.isLoading = false;
+    },
+    handleError() {
+      this.error = null;
     },
   },
 };
