@@ -58,9 +58,7 @@ export default {
       return this.selectedCoach.description;
     },
     contactLink() {
-      return (
-        this.$route.path.match(/^\/[^\/]+/)[0] + '/' + this.id + '/contact'
-      );
+      return this.$route.path.match(/^\/[^/]+/)[0] + '/' + this.id + '/contact';
     },
   },
 };
