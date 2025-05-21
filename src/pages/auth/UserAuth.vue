@@ -68,6 +68,9 @@ export default {
 
       try {
         await this.$store.dispatch(this.mode, actionPayload);
+        const redirectUrl = '/' + (this.$route.query.redirect || '');
+
+        this.$router.replace(redirectUrl);
       } catch (err) {
         this.error = err.message;
       }
