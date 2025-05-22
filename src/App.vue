@@ -17,6 +17,19 @@ export default {
   created() {
     this.$store.dispatch('tryLogin');
   },
+
+  computed: {
+    didLogout() {
+      return this.$store.getters.didLogout;
+    },
+  },
+  watch: {
+    didLogout(value, oldValue) {
+      if (value && value !== oldValue) {
+        this.$router.replace('/');
+      }
+    },
+  },
 };
 </script>
 
