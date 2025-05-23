@@ -35,8 +35,7 @@ export default {
       throw new Error(responseData.error.message || 'Failed to authenticate.');
     }
 
-    // const expiresIn = responseData.expiresIn * 1000;
-    const expiresIn = 8000;
+    const expiresIn = responseData.expiresIn * 1000;
     const expirationDate = new Date().getTime() + expiresIn;
 
     localStorage.setItem('token', responseData.idToken);
